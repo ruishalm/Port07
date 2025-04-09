@@ -19,6 +19,7 @@ h1 {
     position: relative;
     width: 200px;
     height: 120px;
+    margin-bottom: 10px; /* Espaço antes do timer */
 }
 
 .useless-box {
@@ -50,6 +51,7 @@ h1 {
     height: 20px;
     background-color: #8c6d4f;
     border: 3px solid #5a3a22;
+    border-bottom: none;
     border-radius: 3px 3px 0 0;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 0;
@@ -103,24 +105,23 @@ input:checked + .slider:before {
     transform: translateY(26px);
 }
 
-/* --- Base do Braço Alongada --- */
 .arm {
     position: absolute;
-    top: -95px; /* Mais negativo para esconder braço mais longo */
+    top: -95px; /* Posição inicial acima da caixa */
     left: 50%;
     transform: translateX(-50%);
     width: 15px;
-    height: 90px; /* <<< ALTERADO AQUI: Braço mais longo */
+    height: 90px;
     background-color: #bdc3c7;
     border: 1px solid #7f8c8d;
     border-radius: 5px 5px 0 0;
     z-index: 2;
-    transform-origin: center top;
+    transform-origin: center top; /* Ponto de pivô no topo */
 }
 
 .hand {
     position: absolute;
-    bottom: -5px;
+    bottom: -5px; /* Mão na extremidade inferior do braço */
     left: 50%;
     transform: translateX(-50%);
     width: 20px;
@@ -131,25 +132,35 @@ input:checked + .slider:before {
 }
 
 .arm.active {
-    animation: pushSwitchVerticalSimplified 1.2s ease-in-out forwards;
+    /* --- ALTERAÇÃO SOLICITADA --- */
+    /* Duração da animação ajustada para 0.8s */
+    animation: pushSwitchVerticalSimplified 0.8s ease-in-out forwards;
 }
 
-/* Animação ajustada para braço mais longo */
+/* A definição dos keyframes não muda */
 @keyframes pushSwitchVerticalSimplified {
     0% {
-        top: -95px; /* Posição inicial ajustada */
+        top: -95px; /* Começa escondido acima */
         transform: translateX(-50%) rotate(0deg);
     }
     40% {
-        top: -15px; /* <<< ALTERADO AQUI: Posição final mais baixa para compensar altura */
+        top: -15px; /* Desce até perto do switch */
         transform: translateX(-50%) rotate(0deg);
     }
     60% {
-        top: -15px; /* <<< ALTERADO AQUI: Posição final mais baixa para compensar altura */
+        top: -15px; /* Empurra (gira levemente) */
         transform: translateX(-50%) rotate(-5deg);
     }
     100% {
-        top: -95px; /* Posição final ajustada */
+        top: -95px; /* Volta para a posição inicial */
         transform: translateX(-50%) rotate(0deg);
     }
+}
+.timer-info {
+    margin-top: 20px;
+    font-family: sans-serif;
+    color: #555;
+    min-height: 1.2em;
+    text-align: center;
+    width: 100%;
 }

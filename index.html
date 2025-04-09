@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1></h1> <!-- Título vazio conforme solicitado -->
 
-    <h1></h1>
-
+    <!-- Container da caixa -->
     <div class="useless-box-container">
         <div class="useless-box">
-            <label class="switch" for="useless-switch" aria-label="Interruptor inútil">
+            <label class="switch">
                 <input type="checkbox" id="useless-switch">
                 <span class="slider"></span>
             </label>
@@ -20,8 +20,12 @@
                 <div class="hand"></div>
             </div>
         </div>
-        <div class="box-lid"></div> <!-- Tampa opcional para visual -->
+        <div class="box-lid"></div>
     </div>
+    <!-- FIM do container da caixa -->
+
+    <!-- O timer vem DEPOIS do container -->
+    <p id="timer-display" class="timer-info"></p>
 
     <script src="script.js"></script>
 </body>
