@@ -1,0 +1,155 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+    margin: 0;
+    padding-top: 20px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.useless-box-container {
+    position: relative;
+    width: 200px;
+    height: 120px;
+}
+
+.useless-box {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 100px;
+    border: 3px solid #5a3a22;
+    background-color: #ab825f;
+    border-radius: 5px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.box-lid {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 190px;
+    height: 20px;
+    background-color: #8c6d4f;
+    border: 3px solid #5a3a22;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 60px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border: 1px solid #888;
+    transition: background-color .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 3px;
+    top: 3px;
+    background-color: white;
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+    transition: transform .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #66bb6a;
+    border-color: #4caf50;
+}
+
+input:checked + .slider:before {
+    transform: translateY(26px);
+}
+
+/* --- Base do Braço Alongada --- */
+.arm {
+    position: absolute;
+    top: -95px; /* Mais negativo para esconder braço mais longo */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 90px; /* <<< ALTERADO AQUI: Braço mais longo */
+    background-color: #bdc3c7;
+    border: 1px solid #7f8c8d;
+    border-radius: 5px 5px 0 0;
+    z-index: 2;
+    transform-origin: center top;
+}
+
+.hand {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 10px;
+    background-color: #95a5a6;
+    border: 1px solid #7f8c8d;
+    border-radius: 3px;
+}
+
+.arm.active {
+    animation: pushSwitchVerticalSimplified 1.2s ease-in-out forwards;
+}
+
+/* Animação ajustada para braço mais longo */
+@keyframes pushSwitchVerticalSimplified {
+    0% {
+        top: -95px; /* Posição inicial ajustada */
+        transform: translateX(-50%) rotate(0deg);
+    }
+    40% {
+        top: -15px; /* <<< ALTERADO AQUI: Posição final mais baixa para compensar altura */
+        transform: translateX(-50%) rotate(0deg);
+    }
+    60% {
+        top: -15px; /* <<< ALTERADO AQUI: Posição final mais baixa para compensar altura */
+        transform: translateX(-50%) rotate(-5deg);
+    }
+    100% {
+        top: -95px; /* Posição final ajustada */
+        transform: translateX(-50%) rotate(0deg);
+    }
+}
