@@ -11,26 +11,34 @@ let timerSeconds = 5.00;
 // Define o texto inicial do timer
 timerDisplay.textContent = `Caixa vai abrir em: ${timerSeconds.toFixed(2)}s`;
 
-// Função para iniciar/atualizar o timer
+// --- Função startTimer MODIFICADA ---
 function startTimer() {
-    clearInterval(timerInterval);
-    timerSeconds = 5.00;
-    timerDisplay.textContent = `Caixa vai abrir em: ${timerSeconds.toFixed(2)}s`;
+    clearInterval(timerInterval); // Limpa qualquer timer anterior
+    timerSeconds = 5.00; // Reseta os segundos para 5.00
+    timerDisplay.textContent = `Caixa vai abrir em: ${timerSeconds.toFixed(2)}s`; // Mostra imediatamente
+
     timerInterval = setInterval(() => {
-        timerSeconds--;
-        if (timerSeconds >= 0) {
-            timerDisplay.textContent = `Caixa vai abrir em: ${timerSeconds.toFixed(2)}s`;
-        } else {
+        // Decrementa em 0.01 a cada intervalo de 10ms
+        timerSeconds -= 0.01; // <<< AJUSTADO
+
+        // Garante que não mostremos números negativos devido a pequenas imprecisões
+        const displaySeconds = Math.max(0, timerSeconds);
+        timerDisplay.textContent = `Caixa vai abrir em: ${displaySeconds.toFixed(2)}s`;
+
+        // Para o intervalo quando o tempo chegar a zero ou menos
+        if (timerSeconds <= 0) {
             clearInterval(timerInterval);
+            // Garante que a exibição final seja exatamente 0.00
+            timerDisplay.textContent = `Caixa vai abrir em: 0.00s`;
         }
-    }, 1000);
+    }, 10); // <<< AJUSTADO para 10ms (100 vezes por segundo)
 }
 
-// Função para resetar/limpar o timer display
+// --- Função resetTimer (sem mudanças na lógica, mas garante estado inicial) ---
 function resetTimer() {
-    clearInterval(timerInterval);
-    timerSeconds = 5.00;
-    timerDisplay.textContent = `Caixa vai abrir em: ${timerSeconds.toFixed(2)}s`;
+    clearInterval(timerInterval); // Para o timer se estiver rodando
+    timerSeconds = 5.00; // Reseta o valor base dos segundos
+    timerDisplay.textContent = `Caixa vai abrir em: ${timerSeconds.toFixed(2)}s`; // Reseta a exibição
 }
 
 // Função que executa a sequência de animação da caixa (COM TEMPOS AJUSTADOS PARA 0.8s)
@@ -61,7 +69,7 @@ function runAnimationSequence() {
 uselessSwitch.addEventListener('change', function() {
     if (this.checked) {
         clickCount++;
-        startTimer();
+        startTimer(); // Chama a função startTimer modificada
 
         // Verifica a condição APENAS para o DELAY (não para a duração da animação)
         if (clickCount > 4 && clickCount <= 14) {
